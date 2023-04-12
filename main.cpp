@@ -79,15 +79,8 @@ int main()
 
     } while (choice != 4);
 
-    // for (int i = 0; i < aliens.size(); i++)
-    // {
-    //     std::cout << "Alien " << i << " has a weight of " << aliens[i].getWeight() << " and a height of " << aliens[i].getHeight() << std::endl;
-    // }
     for (const auto& alien : aliens)
     {
         printAlienDetails(alien);
     }
-    // for (auto it = aliens.begin(); it != aliens.end(); ++it) {
-    //     std::cout << "\n" << *it;
-    // }
 }

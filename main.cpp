@@ -8,7 +8,7 @@ void printAlienDetails(const Alien& alien) {
     std::cout << "\n--- Alien (" << alien.getGender() << ") ---" << std::endl;
     std::cout << "Weight: " << alien.getWeight() << std::endl;
     std::cout << "Height: " << alien.getHeight() << std::endl;
-    std::cout << "Offspring: " << alien.getOffspring() << std::endl;
+    (alien.getOffspring() == false) ? std::cout << "Parent" << std::endl : std::cout << "Offspring" << std::endl;
     std::cout << "-----------------" << std::endl;
 }
 
@@ -70,7 +70,29 @@ int main()
             }
             case 2: //Create offspring
             {
-                std::cout << "--- TODO: ---\n- Create offspring" << std::endl;
+                //link every two aliens, that are not offspring, together
+                for (int i = 0; i < aliens.size(); i++)
+                {
+                    if (aliens[i].getOffspring() == false)
+                    {
+                        for (int j = 0; j < aliens.size(); j++)
+                        {
+                            if (aliens[j].getOffspring() == false)
+                            {
+                                if (i != j)
+                                {
+                                    i = j + 1;
+                                    Alien offspring = aliens[i] + aliens[j];
+                                    aliens.emplace_back(offspring);
+                                    std::cout << "Offspring created from alien(" << i << ") & alien(" << j << ")" << std::endl;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                break;
             }
             case 3: //Compare offspring prestige
             {

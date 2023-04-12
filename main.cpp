@@ -5,11 +5,11 @@
 
 
 void printAlienDetails(const Alien& alien) {
-    std::cout << "--- Alien (" << alien.getGender() << ") ---" << std::endl;
+    std::cout << "\n--- Alien (" << alien.getGender() << ") ---" << std::endl;
     std::cout << "Weight: " << alien.getWeight() << std::endl;
     std::cout << "Height: " << alien.getHeight() << std::endl;
     std::cout << "Offspring: " << alien.getOffspring() << std::endl;
-    std::cout << "----------" << std::endl;
+    std::cout << "-----------------" << std::endl;
 }
 
 int main()

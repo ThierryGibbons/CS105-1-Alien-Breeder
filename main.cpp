@@ -1,96 +1,20 @@
 #include <iostream>
-#include <cstdlib>
-// #include <ctime>
+#include <ctime>
 #include <vector>
+#include "Alien.h"
 
-class Alien {
-public:
-    int weight;
-    int height;
-    char gender;
-    bool offspring;
-
-    //Constructor
-    Alien(int weight, int height, char gender, bool o) : offspring(o) {};
-
-    //Getters
-    int getWeight() const {
-        return weight;
-    }
-
-    int getHeight() const {
-        return height;
-    }
-
-    char getGender() const {
-        return gender;
-    }
-
-    int getPrestige() const {
-        int genderPoints = (gender == 'M') ? 2 : 3;
-        return height * weight * genderPoints;
-    }
-
-    bool getOffspring() const {
-        return offspring;
-    }
-
-    //Operator Overloading
-    Alien operator+(const Alien& other) const {
-        int offspringWeight = (weight + other.getWeight()) / 2;
-        int offspringHeight = (height + other.getHeight()) / 2;
-        char offspringGender = (rand() % 2 == 0) ? 'M' : 'F';
-        return Alien(offspringWeight, offspringHeight, offspringGender, true);
-    }
-
-    bool operator==(const Alien& other) const {
-        return getPrestige() == other.getPrestige();
-    }
-
-    bool operator!=(const Alien& other) const {
-        return !(*this == other);
-    }
-
-    bool operator>(const Alien& other) const {
-        return getPrestige() > other.getPrestige();
-    }
-
-    bool operator<(const Alien& other) const {
-        return getPrestige() < other.getPrestige();
-    }
-
-    bool operator>=(const Alien& other) const {
-        return !(*this < other);
-    }
-
-    bool operator<=(const Alien& other) const {
-        return !(*this > other);
-    }
-
-};
-std::vector<Alien> aliens;
-
-Alien createAlien() {
-    int weight, height;
-    char gender;
-    bool offspring;
-
-    std::cout << "Enter Height: ";
-    std::cin >> height;
-    std::cout << "Enter Weight: ";
-    std::cin >> weight;
-    offspring = false; // Offspring is always false unless created in a result of breeding
-
-    aliens.emplace_back(weight, height, gender, offspring);
-    return aliens.back();
-}
 
 void printAlienDetails(const Alien& alien) {
-    std::cout << "Alien (" << alien.getGender() << ")" << std::endl;
+    std::cout << "--- Alien (" << alien.getGender() << ") ---" << std::endl;
+    std::cout << "Weight: " << alien.getWeight() << std::endl;
+    std::cout << "Height: " << alien.getHeight() << std::endl;
+    std::cout << "Offspring: " << alien.getOffspring() << std::endl;
 }
 
 int main()
 {
+    srand(time(NULL));
+    std::vector<Alien> aliens;
     int choice = 0;
 
     std::cout << "Welcome to the Alien Breeding Program!" << std::endl;
@@ -122,19 +46,34 @@ int main()
             case 1: //Create alien pair
             {
                 int weight, height;
-                char gender;
-                bool offspring;
 
-                Alien newAlien_M = createAlien();
-                Alien newAlien_F = createAlien();
+                // Alien newAlien_M = createAlien();
+                // Alien newAlien_F = createAlien();
+
+                //Create Alien's
+                std::cout << "--- Create Male Alien ---" << std::endl;
+                std::cout << "Enter Height: ";
+                std::cin >> height;
+                std::cout << "Enter Weight: ";
+                std::cin >> weight;
+                aliens.emplace_back(weight, height, 'M', false);
+
+                std::cout << "--- Create Female Alien ---" << std::endl;
+                std::cout << "Enter Height: ";
+                std::cin >> height;
+                std::cout << "Enter Weight: ";
+                std::cin >> weight;
+                aliens.emplace_back(weight, height, 'F', false);
+
+                break;
             }
             case 2: //Create offspring
             {
-
+                std::cout << "--- TODO: ---\n- Create offspring" << std::endl;
             }
             case 3: //Compare offspring prestige
             {
-
+                std::cout << "--- TODO: ---\n- Compare offspring prestige" << std::endl;
             }
         }
 

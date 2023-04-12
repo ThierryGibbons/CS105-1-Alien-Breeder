@@ -144,11 +144,11 @@ int main()
     // {
     //     std::cout << "Alien " << i << " has a weight of " << aliens[i].getWeight() << " and a height of " << aliens[i].getHeight() << std::endl;
     // }
-    // for (const auto& alien : aliens)
-    // {
-    //     printAlienDetails(alien);
-    // }
-    for (auto it = aliens.begin(); it != aliens.end(); ++it) {
-        std::cout << "\n" << *it;
+    for (const auto& alien : aliens)
+    {
+        printAlienDetails(alien);
     }
+    // for (auto it = aliens.begin(); it != aliens.end(); ++it) {
+    //     std::cout << "\n" << *it;
+    // }
 }

@@ -1,9 +1,10 @@
 #include "Alien.h"
+#include <iostream>
 
 //Constructor
 
-Alien::Alien(int weight, int height, char gender, bool offspring)
-    : weight_(weight), height_(height), gender_(gender), offspring_(offspring) {}
+Alien::Alien(int weight, int height, char gender, bool offspring, bool bred)
+    : weight_(weight), height_(height), gender_(gender), offspring_(offspring), bred_(bred) {}
 
 /*
 Getters
@@ -34,6 +35,19 @@ int Alien::getPrestige() const
     return weight_ * height_ * genderPoints;
 }
 
+bool Alien::getBred() const
+{
+    return bred_;
+}
+
+/*
+Setters
+*/
+void Alien::setBred(bool bred)
+{
+    bred_ = bred;
+}
+
 /*
     Operator Overloading
 */
@@ -43,7 +57,7 @@ Alien Alien::operator+(const Alien& other) const
     int offspringWeight = (weight_ + other.getWeight()) / 2;
     int offspringHeight = (height_ + other.getHeight()) / 2;
     char offspringGender = (rand() % 2 == 0) ? 'M' : 'F';
-    return Alien(offspringWeight, offspringHeight, offspringGender, true);
+    return Alien(offspringWeight, offspringHeight, offspringGender, true, false);
 }
 
 bool Alien::operator==(const Alien& other) const {

@@ -9,6 +9,7 @@ void printAlienDetails(const Alien& alien) {
     std::cout << "Weight: " << alien.getWeight() << std::endl;
     std::cout << "Height: " << alien.getHeight() << std::endl;
     (alien.getOffspring() == false) ? std::cout << "Parent" << std::endl : std::cout << "Offspring" << std::endl;
+    (alien.getBred() == false) ? std::cout << "Not bred" << std::endl : std::cout << "Bred" << std::endl;
     std::cout << "-----------------" << std::endl;
 }
 
@@ -57,33 +58,35 @@ int main()
                 std::cin >> height;
                 std::cout << "Enter Weight: ";
                 std::cin >> weight;
-                aliens.emplace_back(weight, height, 'M', false);
+                aliens.emplace_back(weight, height, 'M', false, false);
 
                 std::cout << "--- Create Female Alien ---" << std::endl;
                 std::cout << "Enter Height: ";
                 std::cin >> height;
                 std::cout << "Enter Weight: ";
                 std::cin >> weight;
-                aliens.emplace_back(weight, height, 'F', false);
+                aliens.emplace_back(weight, height, 'F', false, false);
 
                 break;
             }
             case 2: //Create offspring
             {
                 //link every two aliens, that are not offspring, together
-                for (int i = 0; i < aliens.size(); i++)
+                for (int i = 1; i < aliens.size(); i++)
                 {
-                    if (aliens[i].getOffspring() == false)
+                    if (aliens[i].getOffspring() == false && aliens[i].getBred() == false)
                     {
                         for (int j = 0; j < aliens.size(); j++)
                         {
-                            if (aliens[j].getOffspring() == false)
+                            if (aliens[j].getOffspring() == false && aliens[j].getBred() == false)
                             {
                                 if (i != j)
                                 {
                                     i = j + 1;
                                     Alien offspring = aliens[i] + aliens[j];
                                     aliens.emplace_back(offspring);
+                                    aliens[i].setBred(true);
+                                    aliens[j].setBred(true);
                                     std::cout << "Offspring created from alien(" << i << ") & alien(" << j << ")" << std::endl;
                                     break;
                                 }

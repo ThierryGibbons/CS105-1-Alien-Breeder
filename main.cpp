@@ -3,9 +3,9 @@
 #include <vector>
 #include "Alien.h"
 
-
+int o = 0;
 void printAlienDetails(const Alien& alien) {
-    std::cout << "--- Alien (" << alien.getGender() << ") ---" << std::endl;
+    std::cout << "--- Alien" << o << "(" << alien.getGender() << ") ---" << std::endl;
     std::cout << "Weight: " << alien.getWeight() << std::endl;
     std::cout << "Height: " << alien.getHeight() << std::endl;
     (alien.getOffspring() == false) ? std::cout << "Parent: " : std::cout << "Offspring: ";
@@ -17,6 +17,7 @@ void printAlienDetails(const Alien& alien) {
     }
 
     std::cout << "-----------------\n" << std::endl;
+    o++;
 }
 
 int main()
@@ -33,7 +34,7 @@ int main()
 
         while (!validChoice)
         {
-            std::cout << "1. Create Alien" << std::endl;
+            std::cout << "1. Create Alien pairs." << std::endl;
             std::cout << "2. Create offspring." << std::endl;
             std::cout << "3. Compare offspring prestige." << std::endl;
             std::cout << "4. Exit" << std::endl;
@@ -90,6 +91,7 @@ int main()
                                 {
                                     Alien offspring = aliens[i] + aliens[j];
                                     aliens.emplace_back(offspring);
+                                    aliens.emplace_back(offspring);
                                     aliens[i].setBred(true);
                                     aliens[j].setBred(true);
                                     std::cout << "Offspring created from alien(" << i << ") & alien(" << j << ")" << std::endl;
@@ -105,17 +107,51 @@ int main()
             }
             case 3: //Compare offspring prestige
             {
-                std::cout << "--- TODO: ---\n- Compare offspring prestige" << std::endl;
+                for (int x = 0; x < aliens.size(); x++)
+                {
+                    if (aliens[x].getOffspring() == true)
+                    {
+                        for (int y = 0; y < aliens.size(); y++)
+                        {
+                            if (aliens[y].getOffspring() == true)
+                            {
+                                std::cout << "\n--------------------" << std::endl;
+
+                                std::cout << "Comparing Alien" << x << " with Alien" << y << std::endl << std::endl;
+
+                                std::cout << "Alien" << x << " == Alien" << y << " ? ";
+                                (aliens[x] == aliens[y]) ? std::cout << "true" << std::endl : std::cout << "false" << std::endl;
+
+                                std::cout << "Alien" << x << " != Alien" << y << " ? ";
+                                (aliens[x] != aliens[y]) ? std::cout << "true" << std::endl : std::cout << "false" << std::endl;
+
+                                std::cout << "Alien" << x << " > Alien" << y << " ? ";
+                                (aliens[x] > aliens[y]) ? std::cout << "true" << std::endl : std::cout << "false" << std::endl;
+
+                                std::cout << "Alien" << x << " < Alien" << y << " ? ";
+                                (aliens[x] < aliens[y]) ? std::cout << "true" << std::endl : std::cout << "false" << std::endl;
+
+                                std::cout << "Alien" << x << " >= Alien" << y << " ? ";
+                                (aliens[x] >= aliens[y]) ? std::cout << "true" << std::endl : std::cout << "false" << std::endl;
+
+                                std::cout << "Alien" << x << " <= Alien" << y << " ? ";
+                                (aliens[x] <= aliens[y]) ? std::cout << "true" << std::endl : std::cout << "false" << std::endl;
+
+                                std::cout << "--------------------" << std::endl;
+                            }
+                        }
+                    }
+                }
             }
         }
 
     } while (choice != 4);
 
+    std::cout << "\nAll Aliens:" << std::endl;
+
     int o = 0;
     for (const auto& alien : aliens)
     {
-        o++;
-        std::cout << "Alien(" << o << ")" << std::endl;
         printAlienDetails(alien);
     }
 }

@@ -5,11 +5,18 @@
 
 
 void printAlienDetails(const Alien& alien) {
-    std::cout << "\n--- Alien (" << alien.getGender() << ") ---" << std::endl;
+    std::cout << "--- Alien (" << alien.getGender() << ") ---" << std::endl;
     std::cout << "Weight: " << alien.getWeight() << std::endl;
     std::cout << "Height: " << alien.getHeight() << std::endl;
-    std::cout << "Offspring: " << alien.getOffspring() << std::endl;
-    std::cout << "-----------------" << std::endl;
+    (alien.getOffspring() == false) ? std::cout << "Parent: " : std::cout << "Offspring: ";
+    (alien.getBred() == false) ? std::cout << "Not bred" << std::endl : std::cout << "Bred" << std::endl;
+
+    if (alien.getOffspring() == true && alien.getBred() == true)
+    {
+        std::cout << "Error: Offspring and bred status do not match." << std::endl;
+    }
+
+    std::cout << "-----------------\n" << std::endl;
 }
 
 int main()
@@ -57,20 +64,44 @@ int main()
                 std::cin >> height;
                 std::cout << "Enter Weight: ";
                 std::cin >> weight;
-                aliens.emplace_back(weight, height, 'M', false);
+                aliens.emplace_back(weight, height, 'M', false, false);
 
                 std::cout << "--- Create Female Alien ---" << std::endl;
                 std::cout << "Enter Height: ";
                 std::cin >> height;
                 std::cout << "Enter Weight: ";
                 std::cin >> weight;
-                aliens.emplace_back(weight, height, 'F', false);
+                aliens.emplace_back(weight, height, 'F', false, false);
 
                 break;
             }
             case 2: //Create offspring
             {
-                std::cout << "--- TODO: ---\n- Create offspring" << std::endl;
+                //link every two aliens, that are not offspring, together
+                for (int i = 1; i < aliens.size(); i++)
+                {
+                    if (aliens[i].getOffspring() == false && aliens[i].getBred() == false)
+                    {
+                        for (int j = 0; j < aliens.size(); j++)
+                        {
+                            if (aliens[j].getOffspring() == false && aliens[j].getBred() == false)
+                            {
+                                if (i != j)
+                                {
+                                    Alien offspring = aliens[i] + aliens[j];
+                                    aliens.emplace_back(offspring);
+                                    aliens[i].setBred(true);
+                                    aliens[j].setBred(true);
+                                    std::cout << "Offspring created from alien(" << i << ") & alien(" << j << ")" << std::endl;
+                                    i = j + 1;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                break;
             }
             case 3: //Compare offspring prestige
             {
@@ -80,8 +111,11 @@ int main()
 
     } while (choice != 4);
 
+    int o = 0;
     for (const auto& alien : aliens)
     {
+        o++;
+        std::cout << "Alien(" << o << ")" << std::endl;
         printAlienDetails(alien);
     }
 }

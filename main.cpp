@@ -5,12 +5,18 @@
 
 
 void printAlienDetails(const Alien& alien) {
-    std::cout << "\n--- Alien (" << alien.getGender() << ") ---" << std::endl;
+    std::cout << "--- Alien (" << alien.getGender() << ") ---" << std::endl;
     std::cout << "Weight: " << alien.getWeight() << std::endl;
     std::cout << "Height: " << alien.getHeight() << std::endl;
-    (alien.getOffspring() == false) ? std::cout << "Parent" << std::endl : std::cout << "Offspring" << std::endl;
+    (alien.getOffspring() == false) ? std::cout << "Parent: " : std::cout << "Offspring: ";
     (alien.getBred() == false) ? std::cout << "Not bred" << std::endl : std::cout << "Bred" << std::endl;
-    std::cout << "-----------------" << std::endl;
+
+    if (alien.getOffspring() == true && alien.getBred() == true)
+    {
+        std::cout << "Error: Offspring and bred status do not match." << std::endl;
+    }
+
+    std::cout << "-----------------\n" << std::endl;
 }
 
 int main()
@@ -82,12 +88,12 @@ int main()
                             {
                                 if (i != j)
                                 {
-                                    i = j + 1;
                                     Alien offspring = aliens[i] + aliens[j];
                                     aliens.emplace_back(offspring);
                                     aliens[i].setBred(true);
                                     aliens[j].setBred(true);
                                     std::cout << "Offspring created from alien(" << i << ") & alien(" << j << ")" << std::endl;
+                                    i = j + 1;
                                     break;
                                 }
                             }
@@ -105,8 +111,11 @@ int main()
 
     } while (choice != 4);
 
+    int o = 0;
     for (const auto& alien : aliens)
     {
+        o++;
+        std::cout << "Alien(" << o << ")" << std::endl;
         printAlienDetails(alien);
     }
 }

@@ -2,7 +2,6 @@
 #include <iostream>
 
 //Constructor
-
 Alien::Alien(int weight, int height, char gender, bool offspring, bool bred)
     : weight_(weight), height_(height), gender_(gender), offspring_(offspring), bred_(bred) {}
 
@@ -51,8 +50,7 @@ void Alien::setBred(bool bred)
 /*
     Operator Overloading
 */
-
-Alien Alien::operator+(const Alien& other) const
+Alien Alien::operator+(const Alien& other) const //Overload + operator to create offspring
 {
     int offspringWeight = (weight_ + other.getWeight()) / 2;
     int offspringHeight = (height_ + other.getHeight()) / 2;
@@ -60,26 +58,26 @@ Alien Alien::operator+(const Alien& other) const
     return Alien(offspringWeight, offspringHeight, offspringGender, true, false);
 }
 
-bool Alien::operator==(const Alien& other) const {
+bool Alien::operator==(const Alien& other) const { //Overload == operator to compare prestige
     return getPrestige() == other.getPrestige();
 }
 
-bool Alien::operator!=(const Alien& other) const {
+bool Alien::operator!=(const Alien& other) const { //Overload != operator to compare prestige
     return !(*this == other);
 }
 
-bool Alien::operator>(const Alien& other) const {
+bool Alien::operator>(const Alien& other) const { //Overload > operator to compare prestige
     return getPrestige() > other.getPrestige();
 }
 
-bool Alien::operator<(const Alien& other) const {
+bool Alien::operator<(const Alien& other) const { //Overload < operator to compare prestige
     return getPrestige() < other.getPrestige();
 }
 
-bool Alien::operator>=(const Alien& other) const {
+bool Alien::operator>=(const Alien& other) const { //Overload >= operator to compare prestige
     return !(*this < other);
 }
 
-bool Alien::operator<=(const Alien& other) const {
+bool Alien::operator<=(const Alien& other) const { //Overload <= operator to compare prestige
     return !(*this > other);
 }

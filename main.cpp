@@ -3,7 +3,7 @@
 #include <vector>
 #include "Alien.h"
 
-int o = 0;
+int o = 0; //Used to print the alien number when program exits
 void printAlienDetails(const Alien& alien) {
     std::cout << "--- Alien" << o << "(" << alien.getGender() << ") ---" << std::endl;
     std::cout << "Weight: " << alien.getWeight() << std::endl;
@@ -11,7 +11,7 @@ void printAlienDetails(const Alien& alien) {
     (alien.getOffspring() == false) ? std::cout << "Parent: " : std::cout << "Offspring: ";
     (alien.getBred() == false) ? std::cout << "Not bred" << std::endl : std::cout << "Bred" << std::endl;
 
-    if (alien.getOffspring() == true && alien.getBred() == true)
+    if (alien.getOffspring() == true && alien.getBred() == true) //Check if offspring has somehow managed to breed
     {
         std::cout << "Error: Offspring and bred status do not match." << std::endl;
     }
@@ -32,7 +32,7 @@ int main()
     {
         bool validChoice = false;
 
-        while (!validChoice)
+        while (!validChoice) //Loop until valid choice is entered
         {
             std::cout << "1. Create Alien pairs." << std::endl;
             std::cout << "2. Create offspring." << std::endl;
@@ -50,14 +50,11 @@ int main()
             }
         }
 
-        switch (choice)
+        switch (choice) //Switch statement to handle user choice
         {
             case 1: //Create alien pair
             {
                 int weight, height;
-
-                // Alien newAlien_M = createAlien();
-                // Alien newAlien_F = createAlien();
 
                 //Create Alien's
                 std::cout << "--- Create Male Alien ---" << std::endl;
@@ -78,7 +75,7 @@ int main()
             }
             case 2: //Create offspring
             {
-                //link every two aliens, that are not offspring, together
+                //link every two aliens, that are not offspring, together and create offspring
                 for (int i = 1; i < aliens.size(); i++)
                 {
                     if (aliens[i].getOffspring() == false && aliens[i].getBred() == false)
@@ -88,11 +85,12 @@ int main()
                             if (aliens[j].getOffspring() == false && aliens[j].getBred() == false)
                             {
                                 if (i != j)
-                                {
+                                {   //Create 2 offspring
+                                    Alien offspring = aliens[i] + aliens[j]; //Generate offspring information
+                                    aliens.emplace_back(offspring);
                                     Alien offspring = aliens[i] + aliens[j];
                                     aliens.emplace_back(offspring);
-                                    aliens.emplace_back(offspring);
-                                    aliens[i].setBred(true);
+                                    aliens[i].setBred(true); //Set bred status to true for the parent aliens
                                     aliens[j].setBred(true);
                                     std::cout << "Offspring created from alien(" << i << ") & alien(" << j << ")" << std::endl;
                                     i = j + 1;
@@ -145,10 +143,10 @@ int main()
             }
         }
 
-    } while (choice != 4);
+    } while (choice != 4); //Loop until user chooses to exit
 
+    //Print all aliens
     std::cout << "\nAll Aliens:" << std::endl;
-
     int o = 0;
     for (const auto& alien : aliens)
     {
